@@ -2,15 +2,15 @@ import { useState } from "react";
 import axios from "axios";
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default () => {
-  const [title, setTitle] = useState("");
+export default ({ postId }) => {
+  const [content, setContent] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:4000/posts", {
-      title,
+    await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
+      content,
     });
-    setTitle("");
+    setContent("");
   };
 
   return (
@@ -18,13 +18,13 @@ export default () => {
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <input
-            placeholder="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            placeholder="new comment..."
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
             className="form-control my-2"
           />
         </div>
-        <button className="btn btn-success w-100 ">create</button>
+        <button className="btn btn-primary w-100 ">add</button>
       </form>
     </>
   );
